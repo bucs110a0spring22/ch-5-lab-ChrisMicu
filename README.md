@@ -8,18 +8,18 @@
 _Replace anything surrounded by the `< >` symbols._
 
 ## SUMMARY:
- < Provide a short description of your program's functionality. No more than a couple sentences. >
+My program creates 3 dart board games, one plots 10 random points, the other plays a sim game, and the last one creates a binch of dart thrown based on input by user.
 
 ## GRACE DAYS
-Grace days used for this assignment: < # >
+Grace days used for this assignment: 0
 
-Grace days remaining: < # >/5
+Grace days remaining: 5/5
 
 ## KNOWN BUGS AND INCOMPLETE PARTS:
- < What parts of the project you were not able to complete >
+ I was not able to get the dots to change color if they were made on the outside of the circle.
 
 ## REFERENCES:
- < List any outside resources used >
+none
 
 ## MISCELLANEOUS COMMENTS:
- < Anything you would like the grader to know >
+none

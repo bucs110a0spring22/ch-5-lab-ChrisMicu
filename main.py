@@ -33,6 +33,135 @@ import time
 #########################################################
 
 
+#Part A
+def drawSquare(myturtle=None, width=0, top_left_x=0, top_left_y=0):
+  '''
+    The function draws a square for the window
+    args: (myturtle, width, top_left_x, top_left_y)
+    return: none
+    '''
+
+  myturtle.pu()
+  myturtle.goto(top_left_x,top_left_y)
+  myturtle.pd() 
+  sides= 4
+  width=2
+  angle= 360/sides
+  for i in range(4):
+    myturtle.forward(width)
+    myturtle.right(angle)
+
+def drawLine(myturtle=None, x_start=0, y_start=0, x_end=0, y_end=0):
+  myturtle.pu()
+  myturtle.goto(x_start, y_start)
+  myturtle.pd()
+  myturtle.goto(x_end, y_end)
+  '''
+    The function draws the x and y axis of the dartboard
+    args: (myturtle, x_start, y_start, x_end, y_end) 
+    return: none
+    '''
+
+def drawCircle(myturtle=None, radius=0):
+  myturtle.pu()
+  myturtle.goto(0, -1) 
+  myturtle.pd()
+  myturtle.circle(radius, steps=100)
+  '''
+    The function draws a circle for the dartboard
+    args: (myturtle, radius)
+    return: none
+    '''
+
+def setUpDartboard(myscreen=None, myturtle=None):
+  myscreen.setworldcoordinates(-1,-1,1,1)
+  drawSquare(myturtle, 2, -1, 1)
+  drawLine(myturtle, -1, 0, 1, 0)
+  drawLine(myturtle, 0, 1, 0, -1)
+  drawCircle(myturtle, 1)
+  '''
+    The function sets up the dartboard
+    args: (myscreen, myturtle)
+    return: none
+    '''
+
+def throwDart(myturtle=None):
+    x= random.uniform(-1, 1)
+    y= random.uniform(-1, 1)
+    myturtle.pu()
+    myturtle.goto(x,y)
+    myturtle.dot()
+    if (isInCircle(myturtle,x,y)):
+      myturtle.goto(x , y)
+      myturtle.dot('blue')
+      return True
+    else:
+      myturtle.goto(x , y)
+      myturtle.dot('red')
+      return False
+''' 
+The function throws darts 
+args: (myturtle)
+return: none
+'''
+#Part B 
+def playDarts(myturtle=None):
+  playerOne = 0
+  playerTwo = 0
+
+  for i in range(10):
+    throwDart(myturtle)
+    if (isInCircle(myturtle, 0, 0, 1) == True):
+      playerOne += 1
+      print("player 1 scores")
+    throwDart(myturtle)
+    if (isInCircle(myturtle, 0, 0, 1) == True):
+      playerTwo += 1
+      print("player 2 scores")
+
+    print("player one's score is " + str(playerOne))
+    print("player two's score is " + str(playerTwo))
+
+  if (playerOne > playerTwo):
+    print ("Player One Wins!")
+  elif (playerTwo > playerOne):
+    print ("Player Two Wins!")
+  else:
+    print ("It's a TIE!")
+'''
+The function throws darts for 2 players, keeps track of scores, and   decides the winner
+args: (myturtle)
+return: Player One Wins! Player Two Wins! It's a TIE!
+'''
+
+def isInCircle(myturtle=None, circle_center_x=0, circle_center_y=0, radius=0):
+  distance = myturtle.distance(circle_center_x, circle_center_y)
+  if (distance <= radius):
+      return True
+  else:
+      return False
+
+  '''
+    The function measures the distance of the dart to the center
+    args: (myturtle, circle_center_x, circle_center_y)
+    return: True or False
+    '''
+
+#Part C
+def montePi(myturtle=None, num_darts=0):
+  inside_count= 0
+  for i in range(num_darts):
+    throwDart(myturtle)
+    if (isInCircle(myturtle, 0, 0, 1) == True):
+      inside_count += 1 
+  pi = (inside_count/num_darts) * 4 
+  return pi
+'''
+The function divides numbers of darts by number of darts and multiplies it by 4 to get an approximation of pi
+args: (myturtle)
+return: pi
+'''
+   
 
 #########################################################
 #         Do not alter any code below here              #
@@ -57,6 +186,8 @@ def main():
     for i in range(10):
         throwDart(darty)
     print("\tPart A Complete...")
+  
+    
     print("=========== Part B ===========")
     darty.clear()
     setUpDartboard(window, darty)
@@ -66,7 +197,7 @@ def main():
     print("=========== Part C ===========")
     darty.clear()
     setUpDartboard(window, darty)
-    
+   
     # Includes the following code in order to update animation periodically
     # instead of for each throw (saves LOTS of time):
     BATCH_OF_DARTS = 5000
@@ -81,3 +212,4 @@ def main():
     window.exitonclick()
 
 main()
+  
